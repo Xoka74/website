@@ -1,0 +1,27 @@
+{% extends 'main/layout.html' %}
+{% block title %}All tags{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row">
+          <div class="col-10">
+                    {% if tags %}
+        <ul>
+        {% for tag in tags %}
+                        <li><a href="{% url 'blog:tags' tag.slug %}">
+                            <span style="font-size: 20px">#{{ tag.title }}</span>
+                        </a>
+                    </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tags :(</p>
+    {% endif %}
+           </div>
+        </div>
+    </div>
+</main>
+{% endblock%}
+
+

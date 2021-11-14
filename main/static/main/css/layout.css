@@ -1,0 +1,60 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #E1EBFA;
+
+}
+
+main {
+    flex: 1 1 auto;
+    margin: 0;
+}
+
+.recent-articles li a span{
+    font-size: 30px;
+}
+
+.tags li a span{
+    font-size: 20px;
+}
+
+ul {
+    padding: 0;
+    margin: 10px 0;
+}
+
+li {
+    list-style: none;
+    transition: all .3s ease;
+}
+
+
+main a {
+    text-decoration: none;
+    color: green;
+    transition: all .3s ease;
+}
+
+#layout-navbar {
+    border-bottom: 2px solid black;
+}
+
+main li a span:hover {
+    transform: scale(1.02);
+}
+
+footer {
+    margin-top: 20px;
+}
+footer img{
+    width: 40px;
+}
+
+footer li{
+    transition: none;
+    margin: 0 auto;
+}
+
+.navbar-collapse ul li a {
+    margin-top: -8px
+}

@@ -1,0 +1,27 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block title %}Create tag{% endblock %}
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row">
+          <div class="col-10">
+            <h1>Edit tag "{{ tag.title|title }}"</h1>
+            <form method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors.slug }}
+                        {{ form.errors.title }}
+                    </div>
+
+                {% endif %}
+                {{ form.title }} <br>
+                {{ form.slug }} <br>
+                 <button type='submit' class='btn btn-primary'>Confirm</button>
+            </form>
+           </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

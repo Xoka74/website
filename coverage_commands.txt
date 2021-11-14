@@ -1,0 +1,4 @@
+coverage html                                                     // creates html document with tracebacks
+coverage run --omit='*/venv/*' manage.py test                     // running tests
+
+article = Article.objects.create(title='TestArticle',text='TestText',pubdate=timezone.now)

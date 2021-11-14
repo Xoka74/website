@@ -1,0 +1,21 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block title %}Delete tag{% endblock %}
+
+
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row">
+          <div class="col-10">
+            <form method="post">
+                {% csrf_token %}
+                <h1>Are you sure want to delete tag "{{ tag.title }}"?</h1>
+                <a href="{% url 'blog:blog' %}"><button class='btn btn-primary' type="submit">YES</button></a>
+                <a href="{{ tag.get_absolute_url }}"><button class='btn btn-primary'>NO</button></a>
+            </form>
+           </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

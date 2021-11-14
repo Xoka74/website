@@ -1,0 +1,28 @@
+{% extends 'main/layout.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-10">
+                <h1>Login</h1> <br>
+                <form action="{% url 'account:login' %}" method="post">
+                    {% csrf_token %} <br>
+                    {% if errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                    {% endif %}
+                    {{ dir }}
+                    {{ form.username }} <br>
+                    {{ form.password }} <br>
+                    <button type="submit" class="btn btn-primary">Enter account</button>
+                    Don't have an account? <a href="{% url 'account:reg' %}" class="link-primary">Sign up</a>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

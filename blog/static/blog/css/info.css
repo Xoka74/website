@@ -1,0 +1,23 @@
+.tag-li {
+    list-style: none;
+}
+
+.tag-link {
+    text-decoration: none;
+    color: green;
+}
+.tags {
+    padding: 0;
+}
+
+ul {
+    margin-top: 10px;
+}
+
+.tag {
+    margin-right: 20px;
+}
+
+a button img {
+    width: 20px;
+}

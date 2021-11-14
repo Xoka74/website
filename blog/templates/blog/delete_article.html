@@ -1,0 +1,25 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Delete article{% endblock %}
+
+
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-10">
+                <form method="post">
+                    {% csrf_token %}
+                    <h1>Are you sure want to delete "{{ article.title }}"?</h1>
+                    <button type='submit' class='btn btn-primary'>YES</button>
+                    <a href="{{ article.get_absolute.url }}"><button class='btn btn-primary' type="button">NO</button></a>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}

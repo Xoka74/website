@@ -1,0 +1,121 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}{{ article.title }}{% endblock %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/info.css' %}">{%  endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1>{{ article.title }}</h1>
+
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <a href='{% url "blog:update_article" article.slug %}'>
+                    <button class='btn btn-primary'><img src="{% static 'img/edit-solid.svg' %}">Edit</button>
+                </a>
+                <a href='{% url "blog:delete_article" article.slug %}'>
+                    <button class='btn btn-primary'><img src="{% static 'img/trash-alt-solid.svg' %}">Delete</button>
+                </a>
+                {% endif %}
+
+                <p>{% for tag in article.tags.all %}
+
+                    <a href="{% url 'blog:tags' tag.slug %}" class='tag'>{{ tag.title }}</a>
+                    {% endfor %}
+                </p>
+                <hr>
+                    {{ article.text }}
+                <hr>
+                <span class='time'><time>{{ article.pubdate|date:"d F, Y" }} <br>
+                      {{ article.pubdate|date:"H:i" }}
+
+                </time></span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="container mt-3 mb-3">
+                {% if request.user.is_authenticated %}
+                    <form action="{% url 'blog:info' article.slug %}" method="post">
+                        <h4>Comment creation</h4>
+                        {% csrf_token %} <br>
+                        {{ form.text }} <br>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <br>
+                    </form>
+                {% else %}
+                    <span style>To like article or comment or to add a comment, please, <a href="{% url 'account:login' %}" class="link-primary">login</a></span>
+                {% endif %}
+                {{ r }}
+
+
+                <div class="row d-flex justify-content mt-3">
+                    <div class="col-md-8">
+                        <div class="headings d-flex justify-content-between align-items-center mb-3">
+                            <h5>Comments({{ article.comment.count }})</h5>
+<!--                            <div class="buttons"> <span class="badge bg-white d-flex flex-row align-items-center"> <span-->
+<!--                                    class="text-primary">Comments "ON"</span>-->
+<!--                                <div class="form-check form-switch"> <input class="form-check-input" type="checkbox"-->
+<!--                                                                            id="flexSwitchCheckChecked" checked> </div>-->
+<!--                            </span></div>-->
+                        </div>
+
+                        {% for comment in article.comment.all %}
+                        <div class="card p-3 mt-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="user d-flex flex-row align-items-center"><img
+                                        src="https://i.imgur.com/hczKIze.jpg" width="30"
+                                        class="user-img rounded-circle mr-2">
+                                    <span>
+                                    <a href="{% url 'account:profile' comment.user.id %}"><small
+                                        class="font-weight-bold text-primary">{{ comment.user.username }}</small></a><small
+                                        class="font-weight-bold">{{ comment.text }}</small></span></div>
+                                <small>{{ comment.pubdate }}</small>
+                            </div>
+                            <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                <div class="reply px-4">
+
+
+
+                                    {%if comment.user.id == request.user.id %}
+                                    <a href="{% url 'blog:delete_comment' comment.id %}" class="link-primary"><small>Remove</small></a>
+
+                                    {% endif %}
+
+
+                                    <span class="dots"></span>
+                                    <small>Reply</small>
+                                    <span class="dots"></span>
+                                    <small>Translate</small></div>
+                                <div class="icons align-items-center"><i class="fa fa-star text-warning"></i> <i
+                                        class="fa fa-check-circle-o check-icon"></i></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+{% endblock %}

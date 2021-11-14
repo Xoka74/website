@@ -1,0 +1,16 @@
+{% extends 'main/layout.html' %}
+{% block title %}Registration done{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-10">
+                Registration is done. To log in, push following button:
+                <a href="{% url 'blog:login' %}"><button class="form-control">Log in</button></a>
+
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

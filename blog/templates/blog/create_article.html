@@ -1,0 +1,31 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block title %}Create article{% endblock %}
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row">
+          <div class="col-10">
+            <h1>Create new article</h1>
+            <form method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors.title }}
+                        {{ form.errors.slug }}
+                    </div>
+                {% endif %}
+                {{ form.title }} <br>
+                {{ form.slug }} <br>
+                {{ form.text }} <br>
+                {{ form.tags}} <br>
+                {{ form.pubdate }} <br>
+
+                 <button type='submit' class='btn btn-primary'>Confirm</button>
+            </form>
+           </div>
+        </div>
+    </div>
+</main>
+{{ r }}     
+{% endblock %}
