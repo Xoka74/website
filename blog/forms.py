@@ -7,7 +7,7 @@ from .models import Article, Tag, Comment
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'text', 'pubdate', 'tags', 'slug']
+        fields = ['title', 'text', 'pubdate', 'tags', 'slug'] 
         widgets = {
             'title': TextInput(attrs={
                 'class': 'form-control',

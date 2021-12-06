@@ -44,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True, unique=True)  # Идентификатор
     username = models.CharField(max_length=50, unique=True)  # Логин
     email = models.EmailField(max_length=100, unique=True)  # Email
-    is_active = models.BooleanField(default=True)  # Статус активации
+    is_active = models.BooleanField(default=False)  # Статус активации
     is_staff = models.BooleanField(default=False)  # Статус админа
     is_superuser = models.BooleanField(default=False)
     first_name = models.CharField(max_length=50)
@@ -61,6 +61,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Метод для отображения в админ панели
     def __str__(self):
         return self.username
+
+    def get_absolute_url(self):
+        return f'/account/profile/{self.id}'
 
 
 class Avatar(models.Model):

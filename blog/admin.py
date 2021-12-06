@@ -7,7 +7,6 @@ class ArticleAdmin(admin.ModelAdmin):
     model = Article
     fields = ['title', 'text', 'tags', 'pubdate']
 
-
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Tag)
 admin.site.register(Comment)

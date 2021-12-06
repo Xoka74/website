@@ -27,25 +27,13 @@
                     {% endfor %}
                 </p>
                 <hr>
-                    {{ article.text }}
+                    <p class="article-text">{{ article.text }}</p>
                 <hr>
                 <span class='time'><time>{{ article.pubdate|date:"d F, Y" }} <br>
                       {{ article.pubdate|date:"H:i" }}
 
                 </time></span>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
             <div class="container mt-3 mb-3">
                 {% if request.user.is_authenticated %}
@@ -60,8 +48,6 @@
                     <span style>To like article or comment or to add a comment, please, <a href="{% url 'account:login' %}" class="link-primary">login</a></span>
                 {% endif %}
                 {{ r }}
-
-
                 <div class="row d-flex justify-content mt-3">
                     <div class="col-md-8">
                         <div class="headings d-flex justify-content-between align-items-center mb-3">
@@ -105,13 +91,6 @@
                             </div>
                         </div>
                         {% endfor %}
-
-
-
-
-
-
-
                         </div>
                     </div>
                 </div>

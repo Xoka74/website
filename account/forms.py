@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-from django.forms import Form, CharField, EmailInput
+from django.forms import Form, CharField, EmailInput, ModelForm
 from django.forms import TextInput, PasswordInput
 
 User = get_user_model()
@@ -38,13 +38,29 @@ class UserRegistrationForm(UserCreationForm):
         return password2
 
 
-class UserEditForm(Form):
-    use_required_attribute = False
-    username = CharField(
-        widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'Username', 'required': False}))
-    first_name = CharField(
-        widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'First name', 'required': False}))
-    last_name = CharField(
-        widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'Last name', 'required': False}))
-    email = CharField(widget=EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email', 'required': False}))
-    phone_number = CharField(widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone number', 'required': False}))
+class UserEditForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'phone_number']
+        widgets = {
+            'username': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Username',
+            }),
+            'first_name': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Username',
+            }),
+            'last_name': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Username',
+            }),
+            'email': EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Username',
+            }),
+            'phone_number': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Username',
+            }),
+        }
