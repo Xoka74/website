@@ -1,17 +1,13 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login, logout
-from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
+from django.shortcuts import render, redirect
+
 from django.views import View
 from django.views.generic import DetailView, UpdateView
 
 from .forms import UserLoginForm, UserRegistrationForm, UserEditForm
-from .utils import send_confirmation_email
-from .utils import token_generator
+
 
 User = get_user_model()
 
@@ -21,13 +17,6 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data['username']
-            user = get_object_or_404(User, username=username)
-            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-            domain = get_current_site(request).domain
-            link = 'https://' + domain + reverse('account:activation', kwargs={'uidb64': uidb64, 'token': token_generator.make_token(user)})
-            email = form.cleaned_data['email']
-            send_confirmation_email(email, link)
             return redirect('blog:blog')
     form = UserRegistrationForm()
     context = {
