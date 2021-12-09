@@ -3,8 +3,10 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.core.validators import RegexValidator
 from django.db import models  # Подключаем работу с моделями
 
-
 # Создаем класс менеджера пользователей
+from django.db.models import OneToOneField
+
+
 class MyUserManager(BaseUserManager):
     # Создаём метод для создания пользователя
     def _create_user(self, email, username, password, **extra_fields):
@@ -55,7 +57,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
     USERNAME_FIELD = 'username'  # Идентификатор для обращения
     REQUIRED_FIELDS = ['email']  # Список имён полей для Superuser
-
     objects = MyUserManager()  # Добавляем методы класса MyUserManager
 
     # Метод для отображения в админ панели
@@ -65,8 +66,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         return f'/account/profile/{self.id}'
 
+    def get_user_data(self):
+        data = {
+            'username': self.username,
+            'email': self.email,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'phone_number': self.phone_number,
+        }
+        return data
+
+
 
 class Avatar(models.Model):
-    user = models.OneToOneField(User, related_name='avatar', on_delete=models.CASCADE)
-    img = models.ImageField(blank=True)
-
+    img = OneToOneField(User, on_delete=models.CASCADE, related_name='img', blank=True)

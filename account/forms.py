@@ -1,8 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-from django.forms import Form, CharField, EmailInput, ModelForm
+from django.forms import Form, CharField, EmailInput, ModelForm, FileInput, EmailField
 from django.forms import TextInput, PasswordInput
+
+from .models import Avatar
 
 User = get_user_model()
 
@@ -49,18 +51,56 @@ class UserEditForm(ModelForm):
             }),
             'first_name': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Username',
+                'placeholder': 'First name',
             }),
             'last_name': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Username',
+                'placeholder': 'Last name',
             }),
             'email': EmailInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Username',
+                'placeholder': 'Email',
             }),
             'phone_number': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Username',
+                'placeholder': 'Phone number',
+            }),
+        }
+
+
+class UserEdit(Form):
+    username = CharField(widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Username',
+    }))
+
+    first_name = CharField(widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'First_name',
+    }))
+    last_name = CharField(widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Last_name',
+    }))
+    email = EmailField(widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Email',
+    }))
+    phone_number = CharField(widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Phone_number',
+    }),
+        required=False
+    )
+
+
+class AvatarForm(ModelForm):
+    class Meta:
+        model = Avatar
+        fields = ['img']
+        widgets = {
+            'img': FileInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'avatar',
             }),
         }
